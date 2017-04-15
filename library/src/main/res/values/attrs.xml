@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DdNineGridLayout">
+
+        <attr name="dd_child_width" format="dimension"/>
+        <attr name="dd_child_gap" format="dimension"/>
+        <attr name="dd_child_columns" format="integer"/>
+
+
+    </declare-styleable>
+
+</resources>
