@@ -14,4 +14,14 @@
 
     </declare-styleable>
 
+    <declare-styleable name="DdPhotoAddView">
+
+        <attr name="dd_photo_in_width" format="dimension"/>
+        <attr name="dd_photo_in_height" format="dimension"/>
+        <attr name="dd_photo_in_color" format="color"/>
+        <attr name="dd_photo_out_stroke" format="dimension"/>
+        <attr name="dd_photo_out_color" format="color"/>
+
+    </declare-styleable>
+
 </resources>

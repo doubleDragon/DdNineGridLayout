@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="com.wsl.library.widget.demo.MainActivity">
 
 
@@ -33,10 +34,10 @@
         android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        app:dd_child_columns="4"
-        app:dd_child_width="50dp"
+        app:dd_child_columns="3"
+        app:dd_child_width="80dp"
         app:dd_child_mode="mode_divide_gap"
-        app:dd_child_gap="0dp"/>
+        app:dd_child_gap="4dp"/>
 
 
 </LinearLayout>

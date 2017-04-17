@@ -49,8 +49,7 @@ public class DemoAdapter2 extends DdNineGridAppendAdapter<Bean> {
 
     @Override
     protected View getAddView() {
-        View view = mLayoutInflater.inflate(R.layout.item_add, null);
-        return view;
+        return mLayoutInflater.inflate(R.layout.item_add2, null);
     }
 
     private int getNormalColor() {
