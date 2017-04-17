@@ -13,8 +13,12 @@ import android.view.ViewGroup;
 
 public class DdNineGridLayout extends ViewGroup {
 
+    private static final String TAG = DdNineGridLayout.class.getSimpleName();
+
     private static final int DEFAULT_CHILD_WIDTH = 140;
     private static final int DEFAULT_CHILD_COLUMNS = 3;
+
+    private boolean mDebug;
 
     private int mRow;//行
     private int mColumns;//列
@@ -42,6 +46,10 @@ public class DdNineGridLayout extends ViewGroup {
         a.recycle();
     }
 
+    public void setDebug(boolean debug) {
+        this.mDebug = debug;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -54,24 +62,26 @@ public class DdNineGridLayout extends ViewGroup {
         int width = widthSize;
         int height = 0;
 
-        Log.d("debug", "spec width: " + widthSize + ",spec height: " + heightSize);
+        logD("spec width: " + widthSize + ",spec height: " + heightSize);
 
         int count = getChildCount();
         if (count > 0) {
             for(int i=0; i<count; i++) {
                 View child = getChildAt(i);
                 measureChild(child, widthMeasureSpec, heightMeasureSpec);
-                //每个child大小一样
-                mChildWidth = child.getMeasuredWidth();
+                //每个child大小一样, 不知道为啥实际情况是不一样，需要验证
+                final int measuredChildWidth = child.getMeasuredWidth();
+                logD("i=" + i + "[measuredChildWidth: " + measuredChildWidth + ",mChildWidth: " + mChildWidth + "]");
+//                mChildWidth = measuredChildWidth;
             }
             mChildGap = (widthSize - mColumns * mChildWidth) / (mColumns - 1);
-            Log.d("debug", "mChildWidth: " + mChildWidth + ",mChildGap: " + mChildGap);
+            logD("mChildWidth: " + mChildWidth + ",mChildGap: " + mChildGap);
 
             int rows = mRow = getRows(count);
             height = mChildWidth * rows + mChildGap * (rows - 1);
         }
 
-        Log.d("debug", "width: " + width + ",height: " + height);
+        logD("width: " + width + ",height: " + height);
         setMeasuredDimension(width, height);
     }
 
@@ -86,7 +96,7 @@ public class DdNineGridLayout extends ViewGroup {
             int top = mChildWidth * row + mChildGap * row;
             int right = left + mChildWidth;
             int bottom = top + mChildWidth;
-            Log.d("debug", "i=" + i + "[" + left + "," + top + "," + right + "," + bottom + "]");
+            logD("i=" + i + "[" + left + "," + top + "," + right + "," + bottom + "]");
             child.layout(left, top, right, bottom);
         }
     }
@@ -171,5 +181,15 @@ public class DdNineGridLayout extends ViewGroup {
      */
     private int getColumn(int index) {
         return index % mColumns;
+    }
+
+    int getChildWidth() {
+        return mChildWidth;
+    }
+
+    private void logD(String text) {
+        if(mDebug) {
+            Log.d(TAG, text);
+        }
     }
 }

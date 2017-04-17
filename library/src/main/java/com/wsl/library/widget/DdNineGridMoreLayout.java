@@ -3,7 +3,9 @@ package com.wsl.library.widget;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by wsl on 17/4/14.
@@ -56,12 +58,14 @@ public class DdNineGridMoreLayout extends DdNineGridLayout{
             int count = mAdapter.getCount();
             for(int i=0; i<count; i++) {
                 View view = mAdapter.getView(i, this);
-                LayoutParams params = view.getLayoutParams();
-//                Log.d("xxx", "add view width: " + params.width + ",height: " + params.height);
-                addView(view, i);
+//                LayoutParams params = view.getLayoutParams();
+//                Log.d("xxx", "add view[" + view.toString() + "]");
+                addView(view, i, new LayoutParams(getChildWidth(), getChildWidth()));
             }
         }
-        requestLayout();
+
+
+//        requestLayout();
     }
 
     private class AdapterDataSetObserver extends DataSetObserver {
