@@ -34,7 +34,9 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         app:dd_child_columns="4"
-        app:dd_child_width="50dp"/>
+        app:dd_child_width="50dp"
+        app:dd_child_mode="mode_divide_gap"
+        app:dd_child_gap="0dp"/>
 
 
 </LinearLayout>

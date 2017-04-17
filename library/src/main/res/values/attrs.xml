@@ -7,6 +7,10 @@
         <attr name="dd_child_gap" format="dimension"/>
         <attr name="dd_child_columns" format="integer"/>
 
+        <attr name="dd_child_mode" format="enum">
+            <enum name="mode_divide_equally" value="0"/>
+            <enum name="mode_divide_gap" value="1"/>
+        </attr>
 
     </declare-styleable>
 

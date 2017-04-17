@@ -17,6 +17,8 @@ public class DdNineGridLayout extends ViewGroup {
 
     private static final int DEFAULT_CHILD_WIDTH = 140;
     private static final int DEFAULT_CHILD_COLUMNS = 3;
+    private static final int CHILD_MODE_DIVIDE_EQUALLY = 0;
+    private static final int CHILD_MODE_DIVIDE_GAP = 1;
 
     private boolean mDebug;
 
@@ -27,6 +29,8 @@ public class DdNineGridLayout extends ViewGroup {
     private int mChildGap;//间距, 上下左右相等
 
     private boolean mShowAdd;
+
+    private int mMode;
 
     public DdNineGridLayout(Context context) {
         this(context, null);
@@ -41,8 +45,12 @@ public class DdNineGridLayout extends ViewGroup {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DdNineGridLayout);
         mChildWidth = a.getDimensionPixelOffset(R.styleable.DdNineGridLayout_dd_child_width, 0);
-        mChildGap = a.getDimensionPixelOffset(R.styleable.DdNineGridLayout_dd_child_gap, 0);
         mColumns = a.getInt(R.styleable.DdNineGridLayout_dd_child_columns, DEFAULT_CHILD_COLUMNS);
+        mMode = a.getInt(R.styleable.DdNineGridLayout_dd_child_mode, CHILD_MODE_DIVIDE_EQUALLY);
+        if(mMode == CHILD_MODE_DIVIDE_GAP) {
+            //GAP模式才去取值
+            mChildGap = a.getDimensionPixelOffset(R.styleable.DdNineGridLayout_dd_child_gap, 0);
+        }
         a.recycle();
 
         if(mChildWidth == 0) {
@@ -56,7 +64,6 @@ public class DdNineGridLayout extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
 
@@ -74,11 +81,14 @@ public class DdNineGridLayout extends ViewGroup {
                 View child = getChildAt(i);
                 measureChild(child, widthMeasureSpec, heightMeasureSpec);
                 //每个child大小一样, 不知道为啥实际情况是不一样，需要验证
-                final int measuredChildWidth = child.getMeasuredWidth();
-                logD("i=" + i + "[measuredChildWidth: " + measuredChildWidth + ",mChildWidth: " + mChildWidth + "]");
+//                final int measuredChildWidth = child.getMeasuredWidth();
+//                logD("i=" + i + "[measuredChildWidth: " + measuredChildWidth + ",mChildWidth: " + mChildWidth + "]");
 //                mChildWidth = measuredChildWidth;
             }
-            mChildGap = (widthSize - mColumns * mChildWidth) / (mColumns - 1);
+            if(mMode == CHILD_MODE_DIVIDE_EQUALLY) {
+                //平分模式下计算gap值
+                mChildGap = (widthSize - mColumns * mChildWidth) / (mColumns - 1);
+            }
             logD("mChildWidth: " + mChildWidth + ",mChildGap: " + mChildGap);
 
             int rows = mRow = getRows(count);
