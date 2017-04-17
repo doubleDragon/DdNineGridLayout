@@ -40,10 +40,14 @@ public class DdNineGridLayout extends ViewGroup {
         super(context, attrs, defStyleAttr);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DdNineGridLayout);
-        mChildWidth = a.getDimensionPixelOffset(R.styleable.DdNineGridLayout_dd_child_width, DEFAULT_CHILD_WIDTH);
+        mChildWidth = a.getDimensionPixelOffset(R.styleable.DdNineGridLayout_dd_child_width, 0);
         mChildGap = a.getDimensionPixelOffset(R.styleable.DdNineGridLayout_dd_child_gap, 0);
         mColumns = a.getInt(R.styleable.DdNineGridLayout_dd_child_columns, DEFAULT_CHILD_COLUMNS);
         a.recycle();
+
+        if(mChildWidth == 0) {
+            throw new RuntimeException("must assign child width");
+        }
     }
 
     public void setDebug(boolean debug) {
