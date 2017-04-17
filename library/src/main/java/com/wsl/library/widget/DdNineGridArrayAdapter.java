@@ -87,4 +87,11 @@ public abstract class DdNineGridArrayAdapter<T> extends DdNineGridBaseAdapter {
     public void setNotifyOnChange(boolean notifyOnChange) {
         mNotifyOnChange = notifyOnChange;
     }
+
+    /**
+     * @return 返回所有的数据
+     */
+    protected List<T> getAll() {
+        return mObjects;
+    }
 }
